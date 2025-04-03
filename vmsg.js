@@ -288,7 +288,7 @@ export class Recorder {
     this.encNode.disconnect();
     this.encNode.onaudioprocess = null;
     this.stopTracks();
-    this.audioCtx.close();
+    if (this.audioCtx && this.audioCtx.state != 'closed') this.audioCtx.close();
     this.worker.postMessage({type: "stop", data: null});
     return new Promise((resolve, reject) => {
       this.resolve = resolve;
